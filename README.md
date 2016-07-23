@@ -4,8 +4,8 @@ This is a repository of [Vagrant](https://www.vagrantup.com) projects which
 I use for developing or testing stuff. They can be used as they are or as
 example for your own needs.
 
-If you want to run a project on your own machine, make sure you have Vagrant
->=1.8 and the Vagrant
+If you want to run a project on your own machine, make sure you have
+Vagrant >=1.8 and the 
 [hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager) plugin
 installed on your machine. Some of the projects will further make use of the
 Vagrant Ansible provisioner which will require Ansible >=2.0.
