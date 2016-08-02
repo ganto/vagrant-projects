@@ -11,16 +11,16 @@ will setup two machines:
 
 1. Create Vagrant machines by running:
 
-      vagrant up
+        vagrant up
 
    This will setup the two LXC containers and install DebOps into the `webmail`
    machine.
 
 2. Login to `webmail` and run DebOps:
 
-      vagrant ssh webmail
-      cd vagrant-project
-      debops
+        vagrant ssh webmail
+        cd vagrant-project
+        debops
 
    This will run the entire DebOps playbook on both machines and setup the
    Postfix and Dovecot servers on the `mail` machine.
@@ -28,19 +28,19 @@ will setup two machines:
 3. As the Roundcube role is not (yet) integrated into the DebOps common
    playbook, it has to be run separately (again from `webmail`):
 
-      debops ansible/playbooks/roundcube.yml
+        debops ansible/playbooks/roundcube.yml
 
    This will setup Nginx and Roundcube on `webmail`.
 
 4. There are two users created on both machines which still need a password:
 
-      for machine in mail webmail; do
-        for user in user1 user2; do
-          vagrant ssh $machine sudo passwd $user
+        for machine in mail webmail; do
+          for user in user1 user2; do
+            vagrant ssh $machine sudo passwd $user
+          done
         done
-      done
 
-5. Now you can login into Roundcube and start sending mails:
-   https://webmail.example.com
+5. Now you can login with the created users into Roundcube and start sending
+   mails: https://webmail.example.com
 
    Enjoy!
