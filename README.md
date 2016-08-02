@@ -31,6 +31,13 @@ via Vagrant Ansible provisioner.
 * `debops-xenial64-lxc`: Setup DebOps with Ubuntu-packaged Ansible on a Ubuntu
   Xenial (16.04) LXC machine.
 
+
+### Demo Applications using DebOps
+
+* `debops-jessie64-mailer-lxc`: Multi-machine mailing cluster with Roundcube,
+  Postfix and Dovecot. See separate [README](/debops-jessie64-mailer-lxc/).
+
+
 ### Author
 
 The content of this repository was written by:
