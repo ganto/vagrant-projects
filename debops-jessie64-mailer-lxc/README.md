@@ -36,11 +36,12 @@ will setup two machines:
 
         for machine in mail webmail; do
           for user in user1 user2; do
-            vagrant ssh $machine sudo passwd $user
+            vagrant ssh -c "echo Set Password for $user on $machine; sudo passwd $user" $machine
           done
         done
 
-5. Now you can login with the created users into Roundcube and start sending
-   mails: https://webmail.example.com
+5. Now you can start playing around with SMTP, IMAP and Roundcube. You can
+   send mails from one user to the other on the command line via `mail` command
+   or login on the Web mail interface on: https://webmail.example.com
 
-   Enjoy!
+Enjoy!
