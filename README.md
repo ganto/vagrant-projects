@@ -35,10 +35,13 @@ via Vagrant Ansible provisioner.
 ### Demo Applications using DebOps
 
 * `debops-jessie64-mailer-lxc`: Multi-machine mailing cluster with Roundcube,
-  Postfix and Dovecot. See separate [README](/debops-jessie64-mailer-lxc/).
+  Postfix and Dovecot using LXC. See separate [README](/debops-jessie64-mailer-lxc/).
 
-* `debops-jessie64-checkmk-lxc`: Check_MK monitoring server setup. See separate
-  [README](/debops-jessie64-checkmk-lxc/).
+* `debops-jessie64-checkmk`: Check_MK monitoring server setup for Virtualbox
+  or KVM (libvirt). See separate [README](/debops-jessie64-checkmk/).
+
+* `debops-jessie64-checkmk-lxc`: Check_MK monitoring server setup using LXC.
+  See separate [README](/debops-jessie64-checkmk-lxc/).
 
 
 ### Author
