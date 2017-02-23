@@ -91,6 +91,9 @@ Vagrant.configure(2) do |config|
         "console_sysctl_kernel_shm_values" => "{}",
         "dhparam__bits" => "[ '1024' ]",
         "ferm__enabled" => "False",
+        "sysctl__shared_memory_configure" => "False",
+        "sysctl__paging_configure" => "False",
+        "sysctl__hardening_enabled" => "False",
       },
       "debops_service_checkmk_server" => [ "default" ],
       "debops_service_checkmk_server:vars" => {
