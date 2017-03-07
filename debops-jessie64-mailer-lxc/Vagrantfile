@@ -92,7 +92,6 @@ Vagrant.configure(2) do |config|
       "debops_master" => [ "webmail" ],
       "debops_all_hosts" => [ "webmail", "mail" ],
       "debops_all_hosts:vars" => {
-         "console_sysctl_kernel_shm_values" => "{}",
          "dhparam__bits" => "[ '1024' ]",
          "ferm__enabled" => "False",
          "nullmailer__relayhost" => "mail.example.com",
