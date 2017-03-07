@@ -98,7 +98,7 @@ Vagrant.configure(2) do |config|
          "sysctl__shared_memory_configure" => "False",
          "sysctl__paging_configure" => "False",
          "sysctl__hardening_enabled" => "False",
-         "users_list" => "[ { 'name': 'user1' }, { 'name': 'user2' } ]"
+         "users__accounts" => "[ { 'name': 'user1' }, { 'name': 'user2' } ]"
       },
       "debops_service_dovecot" => [ "mail" ],
       "debops_service_dovecot:vars" => {
