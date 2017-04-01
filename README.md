@@ -44,10 +44,16 @@ via Vagrant Ansible provisioner.
   See separate [README](/debops-jessie64-checkmk-lxc/).
 
 
+### Other Application Demos
+
+* `heketi-centos7-single`: Single node GlusterFS server with Heketi REST API
+  service. See separate [README](/heketi-centos7-single/).
+
+
 ### Author
 
-The content of this repository was written by:
+The content of this repository was mostly written by:
    
 - [Reto Gantenbein](https://linuxmonk.ch/) | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
 
-License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
+License (if not specified otherwise): [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)

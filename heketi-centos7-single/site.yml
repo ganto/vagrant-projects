@@ -1,0 +1,19 @@
+- hosts: all
+  become: True
+  roles:
+    - common
+
+- hosts: client
+  become: True
+  roles:
+    - gluster_client
+
+- hosts: gluster
+  become: True
+  roles:
+    - gluster
+
+- hosts: heketi
+  become: True
+  roles:
+    - heketi
