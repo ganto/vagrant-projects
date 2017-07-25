@@ -15,7 +15,7 @@
   tasks:
 
     - name: Get debops-contrib.roundcube from Ansible Galaxy
-      command: ansible-galaxy install --roles-path /home/vagrant/vagrant-debops/ansible/roles --no-deps debops-contrib.roundcube
+      command: ansible-galaxy install --roles-path /home/vagrant/vagrant-debops/ansible/roles --no-deps --force debops-contrib.roundcube
 
     - name: Link roundcube playbook
       file:
