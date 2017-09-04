@@ -22,6 +22,9 @@ via Vagrant Ansible provisioner.
 * `debops-jessie64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
   git branch on a Debian Jessie LXC machine.
 
+* `debops-stretch64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
+  git branch on a Debin Stretch LXC machine.
+
 * `debops-trusty64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
   git branch on a Ubuntu Trusty (14.04) LXC machine.
 
