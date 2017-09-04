@@ -19,17 +19,17 @@ These projects will setup [DebOps](http://debops.org) using the
 [vagrant_debops](https://galaxy.ansible.com/ganto/vagrant_debops) Ansible role
 via Vagrant Ansible provisioner.
 
-* `debops-jessie64-lxc`: Setup DebOps including Ansible from the
-  `jessie-backports` repository on a Debian Jessie LXC machine.
+* `debops-jessie64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
+  git branch on a Debian Jessie LXC machine.
 
 * `debops-precise64-lxc`: Setup DebOps including latest stable Ansible from
   [PyPI](https://pypi.python.org/pypi) on a Ubuntu Precise (12.04) LXC machine.
 
-* `debops-trusty64-lxc`: Setup DebOps including Ansible from the `stable-2.1`
+* `debops-trusty64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
   git branch on a Ubuntu Trusty (14.04) LXC machine.
 
-* `debops-xenial64-lxc`: Setup DebOps with Ubuntu-packaged Ansible on a Ubuntu
-  Xenial (16.04) LXC machine.
+* `debops-xenial64-lxc`: Setup DebOps including Ansible from the `stable-2.3`
+  git branch on a Ubuntu Xenial (16.04) LXC machine.
 
 
 ### Demo Applications using DebOps

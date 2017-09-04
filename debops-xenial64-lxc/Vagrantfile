@@ -81,7 +81,10 @@ Vagrant.configure("2") do |config|
       "debops_all_hosts" => ["default"]
     }
     ansible.extra_vars = {
-      debops__packages: '[ "python-setuptools" ]'
+      debops__ansible_git: "True",
+      debops__ansible_git_branch: "stable-2.3",
+      debops__packages: '[ "python-setuptools" ]',
+      vagrant_debops__debops__update_method: 'async'
     }
   end
 
