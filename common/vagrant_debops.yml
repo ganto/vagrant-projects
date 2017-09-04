@@ -2,7 +2,7 @@
 
 - name: Setup DebOps via Vagrant
   hosts: all
-  become: True
 
   roles:
     - role: ganto.vagrant_debops
+      become: True
