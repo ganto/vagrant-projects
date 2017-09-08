@@ -1,0 +1,71 @@
+---
+
+- name: Prepare AWX development environment
+  hosts: localhost
+
+  vars:
+    awx_devel__packages:
+      - ansible
+      - docker
+      - gcc-c++
+      - gettext
+      - git
+      - htop
+      - libselinux-python
+      - make
+      - nodejs
+      - npm
+      - policycoreutils-python
+      - python-docker-py
+      - vim
+    awx_devel__repo_url: 'https://github.com/ansible/awx.git'
+    awx_devel__repo_dir: '/home/vagrant/awx'
+    awx_devel__pgdata: '/home/vagrant/pg_data'
+
+  tasks:
+    - name: Install prerequisite packages
+      become: True
+      package:
+        name: '{{ item }}'
+        state: latest
+      with_items: '{{ awx_devel__packages }}'
+      tags:
+        - pkgs
+
+    - name: Enable and start docker
+      become: True
+      service:
+        name: 'docker'
+        state: 'started'
+        enabled: yes
+
+    - name: Clone/Update awx git repository
+      git:
+        repo: '{{ awx_devel__repo_url }}'
+        dest: '{{ awx_devel__repo_dir }}'
+        version: '{{ awx_devel__version|default(omit) }}'
+      tags:
+        - repo
+
+    - name: Link Ansible inventory
+      become: True
+      file:
+        path: '/etc/ansible/hosts'
+        src: '{{ awx_devel__repo_dir }}/installer/inventory'
+        state: link
+        force: yes
+
+    - name: Set persistent PostgreSQL data directory
+      lineinfile:
+        path: '{{ awx_devel__repo_dir }}/installer/inventory'
+        line: 'postgres_data_dir={{ awx_devel__pgdata }}'
+        regexp: '^postgres_data_dir'
+
+    - name: Set SELinux file context for PostgreSQL data directory
+      sefcontext:
+        target: '{{ awx_devel__pgdata }}(/.*)?'
+        setype: 'container_file_t'
+
+    - name: Hint build command
+      debug:
+        msg: 'Start build with "ansible-playbook --become awx/installer/install.yml"'
