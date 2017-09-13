@@ -1,0 +1,3 @@
+---
+# Use debops.docker from Ansible Galaxy
+- src: debops.docker

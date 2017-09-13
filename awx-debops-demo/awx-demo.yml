@@ -1,0 +1,141 @@
+---
+
+- name: Prepare AWX demo setup
+  hosts: all
+  become: True
+
+  vars:
+    awx_demo__task_image: 'docker.io/linuxmonk/awx_task'
+    awx_demo__task_tag: 'latest'
+
+    awx_demo__web_image: 'docker.io/linuxmonk/awx_web'
+    awx_demo__web_tag: 'latest'
+    awx_demo__web_secret: 'awxftw'
+
+    awx_demo__rabmq_image: 'docker.io/rabbitmq'
+    awx_demo__rabmq_tag: '3'
+
+    awx_demo__psql_image: 'docker.io/postgres'
+    awx_demo__psql_tag: '9.6'
+    awx_demo__psql_data: '/home/vagrant/pg_data'
+    awx_demo__psql_user: 'awx'
+    awx_demo__psql_password: 'awxpass'
+    awx_demo__psql_database: 'awx'
+
+    awx_demo__memc_image: 'docker.io/memcached'
+    awx_demo__memc_tag: 'alpine'
+
+    awx_demo__gogs_image: 'docker.io/gogs/gogs'
+    awx_demo__gogs_tag: 'latest'
+    awx_demo__gogs_data: '/home/vagrant/gogs_data'
+
+  roles:
+    - role: debops.docker
+
+  post_tasks:
+    - name: Create persistent data directories
+      file:
+        path: '{{ item }}'
+        state: directory
+      with_items:
+        - '{{ awx_demo__psql_data }}'
+        - '{{ awx_demo__gogs_data }}'
+
+    #
+    # Start containers
+    #
+    - name: Activate GOGS container
+      docker_container:
+        name: 'gogs'
+        state: started
+        image: '{{ awx_demo__gogs_image }}:{{ awx_demo__gogs_tag }}'
+        ports:
+          - '10022:22'
+          - '8080:3000'
+        volumes:
+          - "{{ awx_demo__gogs_data }}:/data"
+
+    - name: Activate postgres container
+      docker_container:
+        name: 'postgres'
+        state: started
+        image: '{{ awx_demo__psql_image }}:{{ awx_demo__psql_tag }}'
+        volumes:
+          - '{{ awx_demo__psql_data }}:/var/lib/postgresql/data'
+        env:
+          POSTGRES_USER: '{{ awx_demo__psql_user }}'
+          POSTGRES_PASSWORD: '{{ awx_demo__psql_password }}'
+          POSTGRES_DB: '{{ awx_demo__psql_database }}'
+
+    - name: Activate rabbitmq container
+      docker_container:
+        name: 'rabbitmq'
+        state: started
+        image: '{{ awx_demo__rabmq_image }}:{{ awx_demo__rabmq_tag }}'
+        env:
+          RABBITMQ_DEFAULT_VHOST: "awx"
+
+    - name: Activate memcached container
+      docker_container:
+        name: 'memcached'
+        state: started
+        image: '{{ awx_demo__memc_image }}:{{ awx_demo__memc_tag }}'
+
+    - name: Wait for postgres and rabbitmq to activate
+      pause:
+        seconds: 15
+
+    - name: Activate AWX Web Container
+      docker_container:
+        name: 'awx_web'
+        state: started
+        image: '{{ awx_demo__web_image }}:{{ awx_demo__web_tag }}'
+        user: root
+        ports:
+          - '80:8052'
+        links:
+          - 'rabbitmq'
+          - 'memcached'
+          - 'postgres'
+        hostname: awxweb
+        env:
+          SECRET_KEY: '{{ awx_demo__web_secret }}'
+          DATABASE_NAME: '{{ awx_demo__psql_database }}'
+          DATABASE_USER: '{{ awx_demo__psql_user }}'
+          DATABASE_PASSWORD: '{{ awx_demo__psql_password }}'
+          DATABASE_PORT: '5432'
+          DATABASE_HOST: 'postgres'
+          RABBITMQ_USER: 'guest'
+          RABBITMQ_PASSWORD: 'guest'
+          RABBITMQ_HOST: 'rabbitmq'
+          RABBITMQ_PORT: '5672'
+          RABBITMQ_VHOST: 'awx'
+          MEMCACHED_HOST: 'memcached'
+          MEMCACHED_PORT: '11211'
+
+    - name: Activate AWX Task Container
+      docker_container:
+        name: 'awx_task'
+        state: started
+        image: '{{ awx_demo__task_image }}:{{ awx_demo__task_tag }}'
+        user: root
+        links:
+          - 'rabbitmq'
+          - 'memcached'
+          - 'awx_web'
+          - 'postgres'
+        hostname: awx
+        env:
+          SECRET_KEY: '{{ awx_demo__web_secret }}'
+          DATABASE_NAME: '{{ awx_demo__psql_database }}'
+          DATABASE_USER: '{{ awx_demo__psql_user }}'
+          DATABASE_PASSWORD: '{{ awx_demo__psql_password }}'
+          DATABASE_PORT: '5432'
+          DATABASE_HOST: 'postgres'
+          RABBITMQ_USER: 'guest'
+          RABBITMQ_PASSWORD: 'guest'
+          RABBITMQ_HOST: 'rabbitmq'
+          RABBITMQ_PORT: '5672'
+          RABBITMQ_VHOST: 'awx'
+          MEMCACHED_HOST: 'memcached'
+          MEMCACHED_PORT: '11211'
