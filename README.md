@@ -48,6 +48,10 @@ via Vagrant Ansible provisioner.
 
 * `fedora-awx-devel`: Setup AWX development environment on a Fedora 26.
 
+* `awx-debops-demo`: AWX demo setup with GOGS running on a Debian Stretch
+  Docker host setup by [debops.docker](https://github.com/debops/ansible-docker).
+  See separate [README](/awx-debops-demo/).
+
 * `heketi-centos7-single`: Single node GlusterFS server with Heketi REST API
   service. See separate [README](/heketi-centos7-single/).
 
