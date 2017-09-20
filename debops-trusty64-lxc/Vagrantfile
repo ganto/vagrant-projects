@@ -82,6 +82,7 @@ Vagrant.configure("2") do |config|
     ansible.extra_vars = {
       debops__ansible_git: "True",
       debops__ansible_git_branch: "stable-2.3",
+      debops__ansible_git_become_user: 'vagrant',
       vagrant_debops__debops__update_method: 'async'
     }
   end
