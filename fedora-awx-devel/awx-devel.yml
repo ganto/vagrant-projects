@@ -1,7 +1,7 @@
 ---
 
 - name: Prepare AWX development environment
-  hosts: localhost
+  hosts: default
 
   vars:
     awx_devel__packages:
@@ -62,6 +62,7 @@
         regexp: '^postgres_data_dir'
 
     - name: Set SELinux file context for PostgreSQL data directory
+      become: True
       sefcontext:
         target: '{{ awx_devel__pgdata }}(/.*)?'
         setype: 'container_file_t'
