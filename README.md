@@ -46,7 +46,8 @@ via Vagrant Ansible provisioner.
 
 ### Other Application Demos
 
-* `fedora-awx-devel`: Setup AWX development environment on a Fedora 27.
+* `fedora-awx-devel`: Setup AWX development environment on a Fedora 27. See
+  seperate [README](/fedora-awx-devel/).
 
 * `heketi-centos7-single`: Single node GlusterFS server with Heketi REST API
   service. See separate [README](/heketi-centos7-single/).
